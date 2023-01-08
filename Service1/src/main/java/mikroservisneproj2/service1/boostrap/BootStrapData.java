@@ -27,7 +27,7 @@ public class BootStrapData implements CommandLineRunner {
         adminInfo.setPassword("123");
         adminInfo.setSurname("Adminic");
         adminInfo.setPhone("064051212");
-        adminInfo.setUsernane("Adminnn");
+        adminInfo.setUsername("Adminnn");
         adminInfo.setBirthDate(1420579840);
         admin.setUserInfo(adminInfo);
         this.adminRepository.save(admin);
