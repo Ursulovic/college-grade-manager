@@ -1,28 +1,40 @@
-package mikroservisneproj2.service1.domain;
+package mikroservisneproj2.service1.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
-@Embeddable
-public class UserInfo {
-    @Column(nullable = false, unique = true)
+public class StudentRegisterDto {
+
+    @NotEmpty
     private String username;
-    @Column(nullable = false)
+    @NotEmpty
     private String password;
-    @Column(nullable = false, unique = true)
+    @Email
     private String email;
-    @Column(nullable = false)
+    @NotEmpty
     private String phone;
-    @Column(nullable = false)
+    @NotEmpty
     private long birthDate;
-    @Column(nullable = false)
+    @NotEmpty
     private String name;
-    @Column(nullable = false)
+    @NotEmpty
     private String surname;
+    @NotEmpty
+    private String indexNumber;
 
 
-    public UserInfo() {
+    public StudentRegisterDto() {
+    }
 
+    public StudentRegisterDto(String username, String password, String email, String phone, long birthDate, String name, String surname, String indexNumber) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.birthDate = birthDate;
+        this.name = name;
+        this.surname = surname;
+        this.indexNumber = indexNumber;
     }
 
     public String getUsername() {
@@ -80,4 +92,14 @@ public class UserInfo {
     public void setSurname(String surname) {
         this.surname = surname;
     }
+
+    public String getIndexNumber() {
+        return indexNumber;
+    }
+
+    public void setIndexNumber(String indexNumber) {
+        this.indexNumber = indexNumber;
+    }
+
+
 }
