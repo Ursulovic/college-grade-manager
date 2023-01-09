@@ -1,26 +1,58 @@
 package mikroservisneproj2.service1.mapper;
 
+import mikroservisneproj2.service1.domain.ExamRegistered;
+import mikroservisneproj2.service1.domain.Professor;
 import mikroservisneproj2.service1.domain.Student;
 import mikroservisneproj2.service1.domain.UserInfo;
-import mikroservisneproj2.service1.dto.StudentRegisterDto;
+import mikroservisneproj2.service1.dto.ProfessorDataDto;
+import mikroservisneproj2.service1.dto.StudentDataDto;
+
+import java.util.Date;
 
 public class Mapper {
 
-    public Student studentRegisterDtoToUser(StudentRegisterDto studentRegisterDto) {
+    public Student studentRegisterDtoToUser(StudentDataDto studentDataDto) {
         Student student = new Student();
         UserInfo userInfo = new UserInfo();
 
-        userInfo.setEmail(studentRegisterDto.getEmail());
-        userInfo.setUsername(studentRegisterDto.getUsername());
-        userInfo.setPassword(studentRegisterDto.getPassword());
-        userInfo.setName(studentRegisterDto.getName());
-        userInfo.setSurname(studentRegisterDto.getSurname());
-        userInfo.setPhone(studentRegisterDto.getPhone());
-        userInfo.setBirthDate(studentRegisterDto.getBirthDate());
+        userInfo.setEmail(studentDataDto.getEmail());
+        userInfo.setUsername(studentDataDto.getUsername());
+        userInfo.setPassword(studentDataDto.getPassword());
+        userInfo.setName(studentDataDto.getName());
+        userInfo.setSurname(studentDataDto.getSurname());
+        userInfo.setPhone(studentDataDto.getPhone());
+        userInfo.setBirthDate(studentDataDto.getBirthDate());
         student.setUserInfo(userInfo);
-        student.setIndexNumber(studentRegisterDto.getIndexNumber());
+        student.setIndexNumber(studentDataDto.getIndexNumber());
+
+//        for (int i : studentDataDto.getExamsRegister()) {
+//            ExamRegistered examRegistered = new ExamRegistered();
+//            examRegistered.setExamId(i);
+//            examRegistered.setStudent(student);
+//            student.getExamRegistered().add(examRegistered);
+//        }
+
 
         return student;
+    }
+
+    public Professor professorRegisterDtotoProfessor(ProfessorDataDto professorRegisterDto) {
+        Professor professor = new Professor();
+        UserInfo userInfo = new UserInfo();
+
+        userInfo.setEmail(professorRegisterDto.getEmail());
+        userInfo.setUsername(professorRegisterDto.getUsername());
+        userInfo.setPassword(professorRegisterDto.getPassword());
+        userInfo.setName(professorRegisterDto.getName());
+        userInfo.setSurname(professorRegisterDto.getSurname());
+        userInfo.setPhone(professorRegisterDto.getPhone());
+        userInfo.setBirthDate(professorRegisterDto.getBirthDate());
+        professor.setUserInfo(userInfo);
+
+        Date date = new Date();
+        professor.setEmploymentDate(date.getTime());
+
+        return professor;
     }
 
 
