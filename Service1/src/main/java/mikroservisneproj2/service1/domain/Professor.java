@@ -18,7 +18,7 @@ public class Professor {
     @Embedded
     private UserInfo userInfo;
 
-    @OneToMany(mappedBy = "professor")
+    @OneToMany(mappedBy = "professor" , cascade = CascadeType.ALL)
     private List<ExamTaught> examsTaught = new ArrayList<>();
 
     public Professor() {

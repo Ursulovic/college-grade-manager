@@ -4,6 +4,7 @@ import mikroservisneproj2.service1.dto.AuthResponseDto;
 import mikroservisneproj2.service1.dto.LoginRequestDto;
 import mikroservisneproj2.service1.dto.ProfessorDataDto;
 import mikroservisneproj2.service1.dto.StudentDataDto;
+import mikroservisneproj2.service1.security.CheckSecurity;
 import mikroservisneproj2.service1.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +41,11 @@ public class AuthController {
     @PostMapping("/professorLogin")
     public ResponseEntity<AuthResponseDto> professorLogin(@RequestBody @Valid LoginRequestDto loginRequestDto) {
         return authService.professorLogin(loginRequestDto);
+    }
+
+    @PostMapping("/adminLogin")
+    public ResponseEntity<AuthResponseDto> adminLogin(@RequestBody @Valid LoginRequestDto loginRequestDto) {
+        return authService.adminLogin(loginRequestDto);
     }
 
 // VALID NE RADI!!!!!!!!!!!!!!!!!

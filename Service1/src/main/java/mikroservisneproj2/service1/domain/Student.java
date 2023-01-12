@@ -14,7 +14,7 @@ public class Student {
     @Column(unique = true, nullable = false)
     private String indexNumber;
 
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<ExamRegistered> examRegistered = new ArrayList<>();
 
     @Embedded
@@ -53,5 +53,16 @@ public class Student {
 
     public void setExamRegistered(List<ExamRegistered> examRegistered) {
         this.examRegistered = examRegistered;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", indexNumber='" + indexNumber + '\'' +
+                ", examRegistered=" + examRegistered +
+                ", userInfo=" + userInfo.toString() +
+                '}';
     }
 }

@@ -1,9 +1,6 @@
 package mikroservisneproj2.service1.mapper;
 
-import mikroservisneproj2.service1.domain.ExamRegistered;
-import mikroservisneproj2.service1.domain.Professor;
-import mikroservisneproj2.service1.domain.Student;
-import mikroservisneproj2.service1.domain.UserInfo;
+import mikroservisneproj2.service1.domain.*;
 import mikroservisneproj2.service1.dto.ProfessorDataDto;
 import mikroservisneproj2.service1.dto.StudentDataDto;
 
@@ -25,12 +22,12 @@ public class Mapper {
         student.setUserInfo(userInfo);
         student.setIndexNumber(studentDataDto.getIndexNumber());
 
-//        for (int i : studentDataDto.getExamsRegister()) {
-//            ExamRegistered examRegistered = new ExamRegistered();
-//            examRegistered.setExamId(i);
-//            examRegistered.setStudent(student);
-//            student.getExamRegistered().add(examRegistered);
-//        }
+        for (int i : studentDataDto.getExamsRegister()) {
+            ExamRegistered examRegistered = new ExamRegistered();
+            examRegistered.setExamId(i);
+            examRegistered.setStudent(student);
+            student.getExamRegistered().add(examRegistered);
+        }
 
 
         return student;
@@ -51,6 +48,13 @@ public class Mapper {
 
         Date date = new Date();
         professor.setEmploymentDate(date.getTime());
+
+        for (int i : professorRegisterDto.getExamsTaught()) {
+            ExamTaught examTaught = new ExamTaught();
+            examTaught.setProfessor(professor);
+            examTaught.setExamId(i);
+            professor.getExamsTaught().add(examTaught);
+        }
 
         return professor;
     }

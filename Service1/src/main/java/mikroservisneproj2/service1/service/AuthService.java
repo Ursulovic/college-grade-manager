@@ -14,4 +14,6 @@ public interface AuthService {
     ResponseEntity<AuthResponseDto> professorLogin(LoginRequestDto loginRequestDto);
     ResponseEntity<AuthResponseDto> professorRegister(ProfessorDataDto professorRegisterDto);
 
+    ResponseEntity<AuthResponseDto> adminLogin(LoginRequestDto loginRequestDto);
+
 }
