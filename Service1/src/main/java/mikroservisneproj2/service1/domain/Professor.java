@@ -18,6 +18,9 @@ public class Professor {
     @Embedded
     private UserInfo userInfo;
 
+    @OneToMany(mappedBy = "professor" , cascade = CascadeType.ALL)
+    private List<ExamTaught> examsTaught = new ArrayList<>();
+
     public Professor() {
     }
 
@@ -43,5 +46,13 @@ public class Professor {
 
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
+    }
+
+    public List<ExamTaught> getExamsTaught() {
+        return examsTaught;
+    }
+
+    public void setExamsTaught(List<ExamTaught> examsTaught) {
+        this.examsTaught = examsTaught;
     }
 }

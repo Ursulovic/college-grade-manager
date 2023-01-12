@@ -3,7 +3,7 @@ package mikroservisneproj2.service1.dto;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class StudentRegisterDto {
+public class UserInfoDto {
 
     @NotEmpty
     private String username;
@@ -19,22 +19,8 @@ public class StudentRegisterDto {
     private String name;
     @NotEmpty
     private String surname;
-    @NotEmpty
-    private String indexNumber;
 
-
-    public StudentRegisterDto() {
-    }
-
-    public StudentRegisterDto(String username, String password, String email, String phone, long birthDate, String name, String surname, String indexNumber) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-        this.phone = phone;
-        this.birthDate = birthDate;
-        this.name = name;
-        this.surname = surname;
-        this.indexNumber = indexNumber;
+    public UserInfoDto() {
     }
 
     public String getUsername() {
@@ -93,13 +79,16 @@ public class StudentRegisterDto {
         this.surname = surname;
     }
 
-    public String getIndexNumber() {
-        return indexNumber;
+    @Override
+    public String toString() {
+        return "UserInfoDto{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", birthDate=" + birthDate +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                '}';
     }
-
-    public void setIndexNumber(String indexNumber) {
-        this.indexNumber = indexNumber;
-    }
-
-
 }
