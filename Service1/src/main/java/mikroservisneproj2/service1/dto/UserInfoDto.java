@@ -14,7 +14,7 @@ public class UserInfoDto {
     @NotEmpty
     private String phone;
     @NotEmpty
-    private long birthDate;
+    private Long birthDate;
     @NotEmpty
     private String name;
     @NotEmpty
@@ -55,11 +55,11 @@ public class UserInfoDto {
         this.phone = phone;
     }
 
-    public long getBirthDate() {
+    public Long getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(long birthDate) {
+    public void setBirthDate(Long birthDate) {
         this.birthDate = birthDate;
     }
 
