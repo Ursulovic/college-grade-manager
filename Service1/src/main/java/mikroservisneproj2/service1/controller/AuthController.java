@@ -24,6 +24,7 @@ public class AuthController {
     }
 
     @PostMapping("/studentRegister")
+    @CheckSecurity
     public ResponseEntity<AuthResponseDto> studentRegister(@RequestBody @Valid StudentDataDto studentDataDto) {
         return authService.studentRegister(studentDataDto);
     }

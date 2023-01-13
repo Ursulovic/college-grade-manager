@@ -7,6 +7,8 @@ public class ProfessorDataDto extends UserInfoDto {
 
     private List<Integer> examsTaught = new ArrayList<>();
 
+    private Long employmentDate;
+
 
     public ProfessorDataDto() {
     }
@@ -17,5 +19,13 @@ public class ProfessorDataDto extends UserInfoDto {
 
     public void setExamsTaught(List<Integer> examsTaught) {
         this.examsTaught = examsTaught;
+    }
+
+    public Long getEmploymentDate() {
+        return employmentDate;
+    }
+
+    public void setEmploymentDate(Long employmentDate) {
+        this.employmentDate = employmentDate;
     }
 }
