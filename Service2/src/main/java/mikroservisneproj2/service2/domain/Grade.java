@@ -17,8 +17,6 @@ public class Grade {
     @ManyToOne
     private Exam exam;
 
-    private boolean didPass;
-
     @Min(0)
     private int preExamPoints;
 
@@ -55,14 +53,6 @@ public class Grade {
 
     public void setExam(Exam exam) {
         this.exam = exam;
-    }
-
-    public boolean isDidPass() {
-        return didPass;
-    }
-
-    public void setDidPass(boolean didPass) {
-        this.didPass = didPass;
     }
 
     public int getPreExamPoints() {

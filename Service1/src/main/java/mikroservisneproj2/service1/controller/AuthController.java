@@ -4,7 +4,6 @@ import mikroservisneproj2.service1.dto.AuthResponseDto;
 import mikroservisneproj2.service1.dto.LoginRequestDto;
 import mikroservisneproj2.service1.dto.ProfessorDataDto;
 import mikroservisneproj2.service1.dto.StudentDataDto;
-import mikroservisneproj2.service1.security.CheckSecurity;
 import mikroservisneproj2.service1.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +23,6 @@ public class AuthController {
     }
 
     @PostMapping("/studentRegister")
-    @CheckSecurity
     public ResponseEntity<AuthResponseDto> studentRegister(@RequestBody @Valid StudentDataDto studentDataDto) {
         return authService.studentRegister(studentDataDto);
     }

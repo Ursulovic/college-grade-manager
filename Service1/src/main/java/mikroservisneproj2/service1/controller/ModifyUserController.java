@@ -3,7 +3,6 @@ package mikroservisneproj2.service1.controller;
 import mikroservisneproj2.service1.dto.ProfessorDataDto;
 import mikroservisneproj2.service1.dto.StudentDataDto;
 import mikroservisneproj2.service1.dto.UserInfoDto;
-import mikroservisneproj2.service1.security.CheckSecurity;
 import mikroservisneproj2.service1.service.ModifyUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
