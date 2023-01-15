@@ -9,5 +9,7 @@ public interface ExamRepository extends JpaRepository<Exam, Long> {
 
     Exam findExamsByName(String name);
 
+    Exam findExamById(long id);
+
 
 }
