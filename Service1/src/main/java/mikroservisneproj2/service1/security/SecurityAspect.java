@@ -1,7 +1,6 @@
 package mikroservisneproj2.service1.security;
 
 import io.jsonwebtoken.Claims;
-import mikroservisneproj2.service1.dto.StudentDataDto;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -13,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 @Aspect
 @Configuration
@@ -21,7 +21,7 @@ public class SecurityAspect {
     @Value("${oauth.jwt.secret}")
     private String jwtSecret;
 
-    private final TokenService tokenService;
+    private TokenService tokenService;
 
     @Autowired
     public SecurityAspect(TokenService tokenService) {
@@ -30,7 +30,6 @@ public class SecurityAspect {
 
     @Around("@annotation(mikroservisneproj2.service1.security.CheckSecurity)")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
-
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Method method = methodSignature.getMethod();
 
@@ -46,34 +45,24 @@ public class SecurityAspect {
                 }
             }
         }
-
-
         if (token == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
+        //Try to parse token
         Claims claims = tokenService.parseToken(token);
-
+        //If fails return UNAUTHORIZED response
         if (claims == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-
-
-
-
-
-
-        return  joinPoint.proceed();
-
+        //Check user role and proceed if user has appropriate role for specified route
+        CheckSecurity checkSecurity = method.getAnnotation(CheckSecurity.class);
+        String role = claims.get("role", String.class);
+        if (Arrays.asList(checkSecurity.roles()).contains(role)) {
+            return joinPoint.proceed();
+        }
+        //Return FORBIDDEN if user has't appropriate role for specified route
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
-
-
-
-
-
-
-
-
-
 
 }

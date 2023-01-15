@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface StudentService {
 
-    ResponseEntity<String> registerExam(int id);
+    ResponseEntity<String> registerExam(int id, String token);
 
     ResponseEntity<List<GradeDto>> listGrades(int id);
 

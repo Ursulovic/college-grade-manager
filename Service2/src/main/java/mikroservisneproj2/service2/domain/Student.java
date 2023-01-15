@@ -48,4 +48,27 @@ public class Student {
         this.grades = grades;
     }
 
+    public List<ObligationScore> getObligationScore() {
+        return obligationScore;
+    }
+
+    public void setObligationScore(List<ObligationScore> obligationScore) {
+        this.obligationScore = obligationScore;
+    }
+
+    public List<Exam> getExams() {
+        return exams;
+    }
+
+    public void setExams(List<Exam> exams) {
+        this.exams = exams;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

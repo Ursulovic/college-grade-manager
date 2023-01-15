@@ -7,7 +7,6 @@ public class Mapper {
 
     public GradeDto gradeToGradeDto(Grade grade) {
         GradeDto gradeDto = new GradeDto();
-        gradeDto.setDidPass(grade.isDidPass());
         gradeDto.setExamPoints(grade.getExamPoints());
         gradeDto.setPreExamPoints(grade.getPreExamPoints());
         gradeDto.setStudentId(grade.getStudent().getId());

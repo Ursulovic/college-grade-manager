@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface ExamRegisteredRepository extends JpaRepository<ExamRegistered, Long> {
 
     void deleteExamRegisteredByStudent(Student student);
+
+    boolean existsExamRegisteredByExamIdAndStudent(int examId, Student student);
+
 }
