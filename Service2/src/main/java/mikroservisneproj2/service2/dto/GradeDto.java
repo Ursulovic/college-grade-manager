@@ -5,15 +5,17 @@ import jakarta.validation.constraints.Min;
 public class GradeDto {
 
     private String examName;
-    private long studentId;
-
-    private boolean didPass;
 
     @Min(0)
     private int preExamPoints;
 
     @Min(0)
     private int examPoints;
+
+
+    private int grade;
+
+    private boolean pass;
 
     public GradeDto() {
     }
@@ -24,22 +26,6 @@ public class GradeDto {
 
     public void setExamName(String examName) {
         this.examName = examName;
-    }
-
-    public long getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(long studentId) {
-        this.studentId = studentId;
-    }
-
-    public boolean isDidPass() {
-        return didPass;
-    }
-
-    public void setDidPass(boolean didPass) {
-        this.didPass = didPass;
     }
 
     public int getPreExamPoints() {
@@ -56,5 +42,21 @@ public class GradeDto {
 
     public void setExamPoints(int examPoints) {
         this.examPoints = examPoints;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
+
+    public boolean isPass() {
+        return pass;
+    }
+
+    public void setPass(boolean pass) {
+        this.pass = pass;
     }
 }

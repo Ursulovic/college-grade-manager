@@ -2,6 +2,7 @@ package mikroservisneproj2.service1.service.impl;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import mikroservisneproj2.service1.domain.ExamTaught;
 import mikroservisneproj2.service1.domain.Professor;
 import mikroservisneproj2.service1.domain.Student;
 import mikroservisneproj2.service1.dto.AuthResponseDto;
@@ -15,6 +16,9 @@ import mikroservisneproj2.service1.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static mikroservisneproj2.service1.messages.ResponseMessages.*;
 
@@ -131,7 +135,13 @@ public class AuthServiceImpl implements AuthService {
                     Claims claims = Jwts.claims();
                     claims.put("email", professor.getUserInfo().getEmail());
                     claims.put("role", "PROFESSOR");
-                    claims.put("exams_taught", professor.getExamsTaught());
+
+                    List<Integer> exams_taught = new ArrayList<>();
+                    for (ExamTaught e : professor.getExamsTaught()) {
+                        exams_taught.add((int) e.getExamId());
+                    }
+
+                    claims.put("exams_taught", exams_taught);
                     String token = tokenService.generate(claims);
                     authResponseDto.setJwt(token);
                     authResponseDto.setMessage(LOGIN_SUCCESS);

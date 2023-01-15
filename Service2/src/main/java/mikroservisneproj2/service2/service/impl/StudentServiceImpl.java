@@ -2,10 +2,12 @@ package mikroservisneproj2.service2.service.impl;
 
 import io.jsonwebtoken.Claims;
 import mikroservisneproj2.service2.domain.Exam;
+import mikroservisneproj2.service2.domain.Grade;
 import mikroservisneproj2.service2.domain.Student;
 import mikroservisneproj2.service2.dto.GradeDto;
 import mikroservisneproj2.service2.dto.internal.OperationResultDto;
 import mikroservisneproj2.service2.dto.internal.RegisterStudentExamDto;
+import mikroservisneproj2.service2.mapper.Mapper;
 import mikroservisneproj2.service2.repository.GradeRepository;
 import mikroservisneproj2.service2.repository.StudentRepository;
 import mikroservisneproj2.service2.security.TokenService;
@@ -15,6 +17,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static mikroservisneproj2.service2.messages.ResponseMessages.STUDENT_EXAM_NOT_LISTENING;
@@ -31,12 +34,15 @@ public class StudentServiceImpl implements StudentService {
 
     private RestTemplate userServiceRestTemplate;
 
+    private final Mapper mapper;
+
     @Autowired
     public StudentServiceImpl(StudentRepository studentRepository, GradeRepository gradeRepository, TokenService tokenService, RestTemplate userServiceRestTemplate) {
         this.studentRepository = studentRepository;
         this.gradeRepository = gradeRepository;
         this.tokenService = tokenService;
         this.userServiceRestTemplate = userServiceRestTemplate;
+        this.mapper = new Mapper();
     }
 
     @Override
@@ -110,7 +116,29 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public ResponseEntity<List<GradeDto>> listGrades(int id) {
-        return null;
+    public ResponseEntity<List<GradeDto>> listGrades(String token) {
+
+        Claims claims = this.tokenService.parseToken(token.substring(7));
+        if (claims == null)
+            return ResponseEntity.status(401).build();
+
+        String email = (String) claims.get("email");
+        System.out.println("Email: " + email);
+
+        Student student = this.studentRepository.findStudentByEmail(email).get();
+
+
+        List<Grade> grades = this.gradeRepository.findAllByStudent(student);
+        List<GradeDto> gradeDtos = new ArrayList<>();
+
+        for (Grade g : grades) {
+            if (g.isDidPass())
+                gradeDtos.add(mapper.gradeToGradeDto(g));
+        }
+
+
+
+
+        return ResponseEntity.ok().body(gradeDtos);
     }
 }
