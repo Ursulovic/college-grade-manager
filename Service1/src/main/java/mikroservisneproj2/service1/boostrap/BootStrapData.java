@@ -1,17 +1,12 @@
 package mikroservisneproj2.service1.boostrap;
 
-import mikroservisneproj2.service1.domain.Admin;
-import mikroservisneproj2.service1.domain.ExamRegistered;
-import mikroservisneproj2.service1.domain.Student;
-import mikroservisneproj2.service1.domain.UserInfo;
+import mikroservisneproj2.service1.domain.*;
 import mikroservisneproj2.service1.repository.AdminRepository;
+import mikroservisneproj2.service1.repository.ProfessorRepository;
 import mikroservisneproj2.service1.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class BootStrapData implements CommandLineRunner {
@@ -21,10 +16,13 @@ public class BootStrapData implements CommandLineRunner {
 
     private final StudentRepository studentRepository;
 
+    private final ProfessorRepository professorRepository;
+
     @Autowired
-    public BootStrapData(AdminRepository adminRepository, StudentRepository studentRepository) {
+    public BootStrapData(AdminRepository adminRepository, StudentRepository studentRepository, ProfessorRepository professorRepository) {
         this.adminRepository = adminRepository;
         this.studentRepository = studentRepository;
+        this.professorRepository = professorRepository;
     }
 
     @Override
@@ -54,18 +52,32 @@ public class BootStrapData implements CommandLineRunner {
         student.setExamRegistered(null);
         student.setIndexNumber("RM2220");
         student.setUserInfo(studentInfo);
-        ExamRegistered examRegistered = new ExamRegistered();
-        examRegistered.setStudent(student);
-        examRegistered.setExamId(1);
-        ExamRegistered examRegistered2 = new ExamRegistered();
-        examRegistered2.setStudent(student);
-        examRegistered2.setExamId(2);
-        List<ExamRegistered> examRegisteredList = new ArrayList<>();
-        examRegisteredList.add(examRegistered);
-        examRegisteredList.add(examRegistered2);
-        student.setExamRegistered((examRegisteredList));
+        student.setExamRegistered((null));
         this.studentRepository.save(student);
 
+        Professor professor = new Professor();
+        UserInfo professorInfo = new UserInfo();
+        professorInfo.setEmail("profesor@gmail.com");
+        professorInfo.setName("Profesor");
+        professorInfo.setSurname("profesoric");
+        professorInfo.setPhone("06412345678");
+        professorInfo.setPassword("123");
+        professorInfo.setBirthDate(123456789);
+        professorInfo.setUsername("najjaci");
+        professor.setUserInfo(professorInfo);
+        professor.setEmploymentDate(999876);
+
+
+        ExamTaught examTaught = new ExamTaught();
+        examTaught.setProfessor(professor);
+        examTaught.setExamId(1);
+
+        professor.getExamsTaught().add(examTaught);
+
+        professorRepository.save(professor);
+
+
+        System.out.println("Data loaded!");
 
     }
 }

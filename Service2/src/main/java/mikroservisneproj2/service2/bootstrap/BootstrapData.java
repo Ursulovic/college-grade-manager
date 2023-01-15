@@ -1,10 +1,7 @@
 package mikroservisneproj2.service2.bootstrap;
 
 import mikroservisneproj2.service2.domain.*;
-import mikroservisneproj2.service2.repository.ExamPeriodRepository;
-import mikroservisneproj2.service2.repository.ExamRepository;
-import mikroservisneproj2.service2.repository.ObligationScoreRepository;
-import mikroservisneproj2.service2.repository.StudentRepository;
+import mikroservisneproj2.service2.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -18,14 +15,17 @@ public class BootstrapData implements CommandLineRunner {
 
     private final StudentRepository studentRepository;
 
+    private final GradeRepository gradeRepository;
+
     private final ObligationScoreRepository obligationScoreRepository;
 
 
     @Autowired
-    public BootstrapData(ExamPeriodRepository examPeriodRepository, ExamRepository examRepository, StudentRepository studentRepository, ObligationScoreRepository obligationScoreRepository) {
+    public BootstrapData(ExamPeriodRepository examPeriodRepository, ExamRepository examRepository, StudentRepository studentRepository, GradeRepository gradeRepository, ObligationScoreRepository obligationScoreRepository) {
         this.examPeriodRepository = examPeriodRepository;
         this.examRepository = examRepository;
         this.studentRepository = studentRepository;
+        this.gradeRepository = gradeRepository;
         this.obligationScoreRepository = obligationScoreRepository;
     }
 
@@ -40,31 +40,57 @@ public class BootstrapData implements CommandLineRunner {
         exam1.setName("Mata");
         exam1.setExamPeriod(examPeriod1);
 
+        Exam exam2 = new Exam();
+        exam2.setName("Programiranje");
+        exam2.setExamPeriod(examPeriod1);
+
+
+
 
         PreExamObligation preExamObligation1 = new PreExamObligation();
         preExamObligation1.setName("Kolokvijujm 1");
         preExamObligation1.setMaxPoints(50);
         preExamObligation1.setExam(exam1);
 
+        PreExamObligation preExamObligation2 = new PreExamObligation();
+        preExamObligation2.setName("Projekat 1");
+        preExamObligation2.setExam(exam1);
+        preExamObligation2.setMaxPoints(30);
+
+
         Student student1 = new Student();
         student1.setEmail("ivan@gmail.com");
         student1.getExams().add(exam1);
+        student1.getExams().add(exam2);
         student1.setObligationScore(null);
-        student1.setGrades(null);
+
+
+//        Grade grade = new Grade();
+//        grade.setStudent(student1);
+//        grade.setPreExamPoints(33);
+//        grade.setExamPoints(44);
+//        grade.setGrade(8);
+//        grade.setExam(exam1);
+//        grade.setDidPass(true);
 
 
 
 
 
-
-
+        //student
+//        student1.getGrades().add(grade);
 
 
         //exam1
         exam1.getPreExamObligations().add(preExamObligation1);
 
+
+        //exam2
+        exam2.getPreExamObligations().add(preExamObligation2);
+
         this.examPeriodRepository.save(examPeriod1);
         this.examRepository.save(exam1);
+        this.examRepository.save(exam2);
         this.studentRepository.save(student1);
 
 

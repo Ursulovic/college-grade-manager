@@ -9,8 +9,9 @@ public class Mapper {
         GradeDto gradeDto = new GradeDto();
         gradeDto.setExamPoints(grade.getExamPoints());
         gradeDto.setPreExamPoints(grade.getPreExamPoints());
-        gradeDto.setStudentId(grade.getStudent().getId());
         gradeDto.setExamName(grade.getExam().getName());
+        gradeDto.setGrade(grade.getGrade());
+        gradeDto.setPass(grade.isDidPass());
         return gradeDto;
     }
 }

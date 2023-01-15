@@ -28,6 +28,8 @@ public class Grade {
     @Column(nullable = false)
     private int grade;
 
+    private boolean didPass;
+
     public Grade() {
     }
 
@@ -79,5 +81,11 @@ public class Grade {
         this.grade = grade;
     }
 
+    public boolean isDidPass() {
+        return didPass;
+    }
 
+    public void setDidPass(boolean didPass) {
+        this.didPass = didPass;
+    }
 }

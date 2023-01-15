@@ -10,6 +10,6 @@ public interface StudentService {
 
     ResponseEntity<String> registerExam(int id, String token);
 
-    ResponseEntity<List<GradeDto>> listGrades(int id);
+    ResponseEntity<List<GradeDto>> listGrades(String token);
 
 }
