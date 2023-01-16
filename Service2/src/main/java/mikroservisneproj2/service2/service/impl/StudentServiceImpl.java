@@ -2,12 +2,14 @@ package mikroservisneproj2.service2.service.impl;
 
 import io.jsonwebtoken.Claims;
 import mikroservisneproj2.service2.domain.Exam;
+import mikroservisneproj2.service2.domain.ExamPeriod;
 import mikroservisneproj2.service2.domain.Grade;
 import mikroservisneproj2.service2.domain.Student;
 import mikroservisneproj2.service2.dto.GradeDto;
 import mikroservisneproj2.service2.dto.internal.OperationResultDto;
 import mikroservisneproj2.service2.dto.internal.RegisterStudentExamDto;
 import mikroservisneproj2.service2.mapper.Mapper;
+import mikroservisneproj2.service2.repository.ExamRepository;
 import mikroservisneproj2.service2.repository.GradeRepository;
 import mikroservisneproj2.service2.repository.StudentRepository;
 import mikroservisneproj2.service2.security.TokenService;
@@ -30,6 +32,8 @@ public class StudentServiceImpl implements StudentService {
 
     private final GradeRepository gradeRepository;
 
+    private final ExamRepository examRepository;
+
     private final TokenService tokenService;
 
     private RestTemplate userServiceRestTemplate;
@@ -37,9 +41,10 @@ public class StudentServiceImpl implements StudentService {
     private final Mapper mapper;
 
     @Autowired
-    public StudentServiceImpl(StudentRepository studentRepository, GradeRepository gradeRepository, TokenService tokenService, RestTemplate userServiceRestTemplate) {
+    public StudentServiceImpl(StudentRepository studentRepository, GradeRepository gradeRepository, ExamRepository examRepository, TokenService tokenService, RestTemplate userServiceRestTemplate) {
         this.studentRepository = studentRepository;
         this.gradeRepository = gradeRepository;
+        this.examRepository = examRepository;
         this.tokenService = tokenService;
         this.userServiceRestTemplate = userServiceRestTemplate;
         this.mapper = new Mapper();
@@ -51,6 +56,12 @@ public class StudentServiceImpl implements StudentService {
         Claims claims = this.tokenService.parseToken(token.substring(7));
         if (claims == null)
             return ResponseEntity.status(401).build();
+
+        Exam exam1 = this.examRepository.findExamById(id);
+
+        if (!exam1.getExamPeriod().isActive()) {
+            return ResponseEntity.status(422).body("Exam is not active!");
+        }
 
         String email = (String) claims.get("email");
         System.out.println("Email: " + email);
